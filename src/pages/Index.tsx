@@ -39,6 +39,41 @@ const SERVICES = [
   { icon: "CreditCard", title: "Удобная оплата", desc: "Наличные, карта или онлайн — как удобно вам" },
 ];
 
+const RIDE_CLASSES = [
+  {
+    emoji: "🚗",
+    name: "Эконом",
+    desc: "Бюджетная поездка по городу",
+    tag: "Выгодно",
+    color: "#4ade80",
+    features: ["Седан / хэтчбек", "До 4 пассажиров", "Подача за 5 мин"],
+  },
+  {
+    emoji: "🚙",
+    name: "Комфорт",
+    desc: "Просторный автомобиль бизнес-класса",
+    tag: "Популярно",
+    color: "var(--gl-gold)",
+    features: ["Бизнес-класс", "До 4 пассажиров", "Кожаный салон"],
+  },
+  {
+    emoji: "🚐",
+    name: "Минивэн",
+    desc: "Идеально для большой компании",
+    tag: "Для группы",
+    color: "#60a5fa",
+    features: ["До 7 пассажиров", "Большой багажник", "Удобная посадка"],
+  },
+  {
+    emoji: "🚌",
+    name: "Минивэн Бизнес",
+    desc: "Премиальный минивэн с максимальным комфортом",
+    tag: "Премиум",
+    color: "#c084fc",
+    features: ["До 7 пассажиров", "VIP-салон", "Зарядки и Wi-Fi"],
+  },
+];
+
 interface ChatMessage {
   from: "user" | "bot";
   text: string;
@@ -175,6 +210,37 @@ export default function Index() {
                 <div className="gl-service-card__line" />
               </div>
             ))}
+          </div>
+
+          <div className="gl-ride-classes">
+            <div className="gl-ride-classes__header">
+              <div className="gl-section__tag">Выберите свой класс</div>
+              <h3 className="gl-ride-classes__title">Варианты <span className="gl-gold">поездок</span></h3>
+            </div>
+            <div className="gl-ride-classes__grid">
+              {RIDE_CLASSES.map((rc) => (
+                <div key={rc.name} className="gl-ride-class-card" style={{ "--rc-color": rc.color } as React.CSSProperties}>
+                  <div className="gl-ride-class-card__top">
+                    <span className="gl-ride-class-card__emoji">{rc.emoji}</span>
+                    <span className="gl-ride-class-card__tag">{rc.tag}</span>
+                  </div>
+                  <h4 className="gl-ride-class-card__name">{rc.name}</h4>
+                  <p className="gl-ride-class-card__desc">{rc.desc}</p>
+                  <ul className="gl-ride-class-card__features">
+                    {rc.features.map((f) => (
+                      <li key={f}>
+                        <Icon name="Check" size={14} />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <button className="gl-ride-class-card__btn" onClick={() => setBookingOpen(true)}>
+                    Выбрать
+                    <Icon name="ArrowRight" size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
